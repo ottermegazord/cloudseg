@@ -1,8 +1,6 @@
 
 import numpy as np
-import skimage
 import os
-import PIL.Image
 from sklearn.model_selection import train_test_split
 import cv2
 from sklearn import svm
@@ -89,52 +87,52 @@ for name, clf in zip(names, classifiers):
     print name
     print clf.score(X_test, y_test)
 
-# print "KNN Classifier"
-# neigh = KNeighborsClassifier(n_neighbors=3)
-# neigh.fit(X_train, y_train)
-# # clf = svm.LinearSVC()
-# # clf.fit(X_train, y_train)
-# y_pred = neigh.predict(X_test)
-# print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
-# print('\n')
-# print(classification_report(y_test, y_pred))
-#
-# print "Decision Tree Classifier"
-# DTC = DecisionTreeClassifier(random_state=0)
-# DTC.fit(X_train, y_train)
-# # clf = svm.LinearSVC()
-# # clf.fit(X_train, y_train)
-# y_pred = DTC.predict(X_test)
-# print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
-# print('\n')
-# print(classification_report(y_test, y_pred))
-#
-# print "Gradient Boosting Classifier"
-# params = {'n_estimators': 1200, 'max_depth': 3, 'subsample': 0.5,
-#           'learning_rate': 0.01, 'min_samples_leaf': 1, 'random_state': 3}
-# GBC = ensemble.GradientBoostingClassifier(**params)
-# GBC.fit(X_train, y_train)
-# # clf = svm.LinearSVC()
-# # clf.fit(X_train, y_train)
-# y_pred = GBC.predict(X_test)
-# print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
-# print('\n')
-# print(classification_report(y_test, y_pred))
-#
-# print GBC.predict(X_test)
-#
-# print "Gradient Process Classifier"
-# params = {'n_estimators': 1200, 'max_depth': 3, 'subsample': 0.5,
-#           'learning_rate': 0.01, 'min_samples_leaf': 1, 'random_state': 3}
-# GPC = GaussianProcessClassifier()
-# GPC.fit(X_train, y_train)
-# # clf = svm.LinearSVC()
-# # clf.fit(X_train, y_train)
-# y_pred = GPC.predict(X_test)
-# print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
-# print('\n')
-# print(classification_report(y_test, y_pred))
-#
-# print GPC.predict(X_test)
+print "KNN Classifier"
+neigh = KNeighborsClassifier(n_neighbors=3)
+neigh.fit(X_train, y_train)
+# clf = svm.LinearSVC()
+# clf.fit(X_train, y_train)
+y_pred = neigh.predict(X_test)
+print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
+print('\n')
+print(classification_report(y_test, y_pred))
+
+print "Decision Tree Classifier"
+DTC = DecisionTreeClassifier(random_state=0)
+DTC.fit(X_train, y_train)
+# clf = svm.LinearSVC()
+# clf.fit(X_train, y_train)
+y_pred = DTC.predict(X_test)
+print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
+print('\n')
+print(classification_report(y_test, y_pred))
+
+print "Gradient Boosting Classifier"
+params = {'n_estimators': 1200, 'max_depth': 3, 'subsample': 0.5,
+          'learning_rate': 0.01, 'min_samples_leaf': 1, 'random_state': 3}
+GBC = ensemble.GradientBoostingClassifier(**params)
+GBC.fit(X_train, y_train)
+# clf = svm.LinearSVC()
+# clf.fit(X_train, y_train)
+y_pred = GBC.predict(X_test)
+print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
+print('\n')
+print(classification_report(y_test, y_pred))
+
+print GBC.predict(X_test)
+
+print "Gradient Process Classifier"
+params = {'n_estimators': 1200, 'max_depth': 3, 'subsample': 0.5,
+          'learning_rate': 0.01, 'min_samples_leaf': 1, 'random_state': 3}
+GPC = GaussianProcessClassifier()
+GPC.fit(X_train, y_train)
+# clf = svm.LinearSVC()
+# clf.fit(X_train, y_train)
+y_pred = GPC.predict(X_test)
+print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
+print('\n')
+print(classification_report(y_test, y_pred))
+
+print GPC.predict(X_test)
 
 
