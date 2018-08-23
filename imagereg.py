@@ -23,7 +23,7 @@ import os
 
 ########################
 
-directory = 'images/hdr'
+directory = 'images/test'
 mser = cv.MSER_create()
 
 for filename in os.listdir(directory):
