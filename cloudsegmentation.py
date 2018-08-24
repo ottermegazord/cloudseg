@@ -59,13 +59,15 @@ class Cloud:
 
         self.gray = cv.cvtColor(result, cv.COLOR_BGR2GRAY)
 
-        ret, thresh = cv.threshold(self.gray, 150, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
+        # ret, thresh = cv.threshold(self.gray, 50, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)
 
-        return ret, thresh
+        thresh = cv.adaptiveThreshold(self.gray, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY, 11, 2)
+
+        return thresh
 
     def percent(self):
 
-        ret, thresh = self.segmentation()
+        thresh = self.segmentation()
         height, width = thresh.shape
         resolution = height * width
         white_pixels = cv.countNonZero(thresh)
@@ -73,7 +75,7 @@ class Cloud:
 
     def draw(self):
 
-        ret, thresh = self.segmentation()
+        thresh = self.segmentation()
         im2, contours, hierarchy = cv.findContours(thresh, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
         vis = self.img.copy()
         cv.drawContours(vis, contours, -1, (0, 255, 0), 3)
