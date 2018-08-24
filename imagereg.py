@@ -23,7 +23,8 @@ import os
 
 ########################
 
-directory = 'images/test'
+# directory = 'images/test'
+directory = 'images/cloud/swimcat/A-sky/images'
 mser = cv.MSER_create()
 
 for filename in os.listdir(directory):
@@ -96,7 +97,9 @@ for filename in os.listdir(directory):
 
     # thresh = cv.adaptiveThreshold(gray, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, \
     #                            cv.THRESH_BINARY, 11, 2)
-    ret, thresh = cv.threshold(gray,0,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
+    ret, thresh = cv.threshold(gray,1,255,cv.THRESH_BINARY+cv.THRESH_OTSU)
+    # thresh = cv.adaptiveThreshold(thresh, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C,
+    #                            cv.THRESH_BINARY, 11, 2)
     im2, contours, hierarchy = cv.findContours(thresh, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
     vis = img.copy()
     cv.drawContours(vis, contours, -1, (0, 255, 0), 3)
