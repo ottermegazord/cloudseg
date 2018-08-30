@@ -24,8 +24,8 @@ filename = '/home/ottermegazord/PycharmProjects/cloudseg/GBC_Model.sav'
 loaded_model = pickle.load(open(filename, 'rb'))
 ppc = 28
 
-root = '/home/ottermegazord/PycharmProjects/cloudseg/images/cloud/swimcat'
 # root = '/home/ottermegazord/PycharmProjects/cloudseg/images/test'
+root = '/home/ottermegazord/PycharmProjects/cloudseg/images/test'
 
 categories = ['Sky', 'Pattern', 'Thick-Dark', 'Thick-White', 'Veil']
 
@@ -41,15 +41,19 @@ for path, subdirs, files in os.walk(root):
                         visualise=True)
 
         result = loaded_model.predict(fd.reshape(1,-1))
+        class_score = loaded_model.predict_proba(fd.reshape(1, -1))
         cloud = Cloud(img_path)
         cloud.segmentation()
         percent = cloud.percent()
         vis = cv2.imread(img_path)
         # title = 'Actual: %s, Predicted: %s, Cloud Percipitation: %.4f' % (correct_cat, result[0], percent)
-        title = 'Predicted: %s, Cloud Percipitation: %.4f' % (result[0], percent)
-        print title
-        # output = zip(categories,result[0])
-        # output = np.transpose(output)
+
+        output = zip(categories,class_score[0])
+        output = np.transpose(output)
+        max_cat = np.argmax(np.array(output[1,:]).astype(float))
+        max_prob = np.max(np.array(output[1,:]).astype(float))*100
+
+        title = 'Predicted: %s (%.3f %%), Cloud Percipitation: %.4f' % (result[0], max_prob, percent)
 
         # print(img_path)
         # for i in range(0, output.shape[1]):
@@ -57,13 +61,24 @@ for path, subdirs, files in os.walk(root):
         #     print 'Actual: %s' % correct_cat
         #     print 'Prediction: %s, Score: %.3f' % (cat, float(score))
         #
-        # # Plotting of images
-        # img_plt = mpimg.imread(img_path)
-        # f, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
+        # Plotting of images
+        img_plt = mpimg.imread(img_path)
+        f, (ax1, ax2) = plt.subplots(1, 2)
         # ax1.imshow(img_plt, interpolation='None', aspect='auto')
-        # ax2.imshow(hog_image)
-        # ax1.set_title('Original Image')
-        # ax2.set_title('HOG Image')
+        ax1.imshow(img_plt)
+        ax2.imshow(hog_image)
+        ax1.set_title('Original Image')
+        ax2.set_title('HOG Image')
+        plt.figtext(0.2, 0.15, title)
+        plt.show()
+
+        # Plotting of images
+        # img_plt = mpimg.imread(img_path)
+        # # f, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
+        # plt.imshow(img_plt, interpolation='None', aspect='auto')
+        # # ax2.imshow(hog_image)
+        # # ax1.set_title('Original Image')
+        # # ax2.set_title('HOG Image')
         # plt.figtext(0.2, 0.15, title)
         # plt.show()
 
@@ -80,11 +95,11 @@ for path, subdirs, files in os.walk(root):
 
 
 
-        cv2.namedWindow(title, cv2.WINDOW_NORMAL)
-        cv2.resizeWindow(title, 500, 500)
-        cv2.imshow(title, vis)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        # cv2.namedWindow(title, cv2.WINDOW_NORMAL)
+        # cv2.resizeWindow(title, 500, 500)
+        # cv2.imshow(title, vis)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
 
 

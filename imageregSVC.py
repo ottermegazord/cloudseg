@@ -137,35 +137,21 @@ X_train, X_test, y_train, y_test = train_test_split(hog_features, y)
 # # print(classification_report(y_test, y_pred))
 # # pickle.dump(GBC, open(filename, 'wb'))
 
-# print "Gradient Boosting Classifier"
-# # params = {'n_estimators': 1200, 'max_depth': 9, 'subsample': 0.5, 'max_features': 'sqrt',
-# #           'learning_rate': 0.2, 'min_samples_leaf': 60, 'random_state': 3, 'verbose':True}
-# # GBC = ensemble.GradientBoostingClassifier(**params)
-# GBC = ensemble.GradientBoostingClassifier(n_estimators=1200, max_depth=5, subsample=0.9, max_features=15,
-#                                                             learning_rate=0.3, min_samples_leaf=40, random_state=3,
-#                                                             min_samples_split=50, verbose=True)
-# GBC.fit(X_train, y_train)
-# filename = '_Model.sav'
-# y_pred = GBC.predict(X_test)
-# print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
-# print("Score: %.3f" % GBC.score(X_test, y_test))
-# print('\n')
-# print(classification_report(y_test, y_pred))
-# pickle.dump(GBC, open(filename, 'wb'))
 
-print "Gaussian NB Classifier"
-# params = {'n_estimators': 1200, 'max_depth': 9, 'subsample': 0.5, 'max_features': 'sqrt',
-#           'learning_rate': 0.2, 'min_samples_leaf': 60, 'random_state': 3, 'verbose':True}
-# GBC = ensemble.GradientBoostingClassifier(**params)
-GNB = GaussianNB()
-GNB.fit(X_train, y_train)
-filename = 'GNB_Model.sav'
-y_pred = GNB.predict(X_test)
+
+print "Gradient Boosting Classifier"
+params = {'n_estimators': 1200, 'max_depth': 9, 'subsample': 0.5, 'max_features': 'sqrt',
+          'learning_rate': 0.2, 'min_samples_leaf': 60, 'random_state': 3, 'verbose':True}
+GBC = ensemble.GradientBoostingClassifier(**params)
+# GNB = GaussianNB()
+GBC.fit(X_train, y_train)
+filename = 'GNB_Model_1.sav'
+y_pred = GBC.predict(X_test)
 print("Accuracy: "+str(accuracy_score(y_test, y_pred)))
-print("Score: %.3f" % GNB.score(X_test, y_test))
+print("Score: %.3f" % GBC.score(X_test, y_test))
 print('\n')
 print(classification_report(y_test, y_pred))
-pickle.dump(GNB, open(filename, 'wb'))
+pickle.dump(GBC, open(filename, 'wb'))
 
 # print "AdaBoost Classifier"
 # params = {'n_estimators': 1200, 'learning_rate': 0.01, 'random_state': 3}
