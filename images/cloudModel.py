@@ -25,7 +25,7 @@ loaded_model = pickle.load(open(filename, 'rb'))
 ppc = 28
 
 # root = '/home/ottermegazord/PycharmProjects/cloudseg/images/test'
-root = '/home/ottermegazord/PycharmProjects/cloudseg/images/test'
+root = '/home/ottermegazord/PycharmProjects/cloudseg/images/cloud/swimcat/E-veil'
 
 categories = ['Sky', 'Pattern', 'Thick-Dark', 'Thick-White', 'Veil']
 
@@ -53,7 +53,7 @@ for path, subdirs, files in os.walk(root):
         max_cat = np.argmax(np.array(output[1,:]).astype(float))
         max_prob = np.max(np.array(output[1,:]).astype(float))*100
 
-        title = 'Predicted: %s (%.3f %%), Cloud Percipitation: %.4f' % (result[0], max_prob, percent)
+        title = 'Path: %s Predicted: %s (%.3f %%), Cloud Percipitation: %.4f' % (img_path, result[0], max_prob, percent)
 
         # print(img_path)
         # for i in range(0, output.shape[1]):
